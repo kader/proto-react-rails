@@ -45,3 +45,7 @@ gem 'showdown-rails'
 
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
+
+gem 'pry-rails'
+gem 'pry-stack_explorer'
+gem "pry"
