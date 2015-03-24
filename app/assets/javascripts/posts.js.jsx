@@ -12,13 +12,13 @@
 
 var converter = new Showdown.converter();
 
-var Comment = React.createClass({
+var Post = React.createClass({
   render: function() {
     var rawMarkup = converter.makeHtml(this.props.children.toString());
     return (
-      <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
+      <div className="Post">
+        <h2 className="postTitle">
+          {this.props.title}
         </h2>
         <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
       </div>
@@ -26,8 +26,8 @@ var Comment = React.createClass({
   }
 });
 
-var CommentBox = React.createClass({
-  loadCommentsFromServer: function() {
+var PostBox = React.createClass({
+  loadPostsFromServer: function() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -39,15 +39,15 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
-  handleCommentSubmit: function(comment) {
-    var comments = this.state.data;
-    comments.push(comment);
-    this.setState({data: comments}, function() {
+  handlePostSubmit: function(post) {
+    var posts = this.state.data;
+    posts.push(post);
+    this.setState({data: posts}, function() {
       $.ajax({
         url: this.props.url,
         dataType: 'json',
         type: 'POST',
-        data: comment,
+        data: { post: post },
         success: function(data) {
           this.setState({data: data});
         }.bind(this),
@@ -61,54 +61,54 @@ var CommentBox = React.createClass({
     return {data: []};
   },
   componentDidMount: function() {
-    this.loadCommentsFromServer();
-    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    this.loadPostsFromServer();
+    setInterval(this.loadPostsFromServer, this.props.pollInterval);
   },
   render: function() {
     return (
-      <div className="commentBox">
-        <h1>Comments</h1>
-        <CommentList data={this.state.data} />
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+      <div className="postBox">
+        <h1>Posts</h1>
+        <PostList data={this.state.data} />
+        <PostForm onPostSubmit={this.handlePostSubmit} />
       </div>
     );
   }
 });
 
-var CommentList = React.createClass({
+var PostList = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function(comment, index) {
+    var postNodes = this.props.data.map(function(post, index) {
       return (
-        <Comment author={comment.author} key={index}>
-          {comment.text}
-        </Comment>
+        <Post title={post.title} key={index}>
+          {post.content}
+        </Post>
       );
     });
     return (
-      <div className="commentList">
-        {commentNodes}
+      <div className="postList">
+        {postNodes}
       </div>
     );
   }
 });
 
-var CommentForm = React.createClass({
+var PostForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
-    var author = this.refs.author.getDOMNode().value.trim();
-    var text = this.refs.text.getDOMNode().value.trim();
-    if (!text || !author) {
+    var title = this.refs.title.getDOMNode().value.trim();
+    var content = this.refs.content.getDOMNode().value.trim();
+    if (!content || !title) {
       return;
     }
-    this.props.onCommentSubmit({author: author, text: text});
-    this.refs.author.getDOMNode().value = '';
-    this.refs.text.getDOMNode().value = '';
+    this.props.onPostSubmit({title: title, content: content});
+    this.refs.title.getDOMNode().value = '';
+    this.refs.content.getDOMNode().value = '';
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="author" />
-        <input type="text" placeholder="Say something..." ref="text" />
+      <form className="postForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="title" ref="title" />
+        <input type="text" placeholder="content" ref="content" />
         <input type="submit" value="Post" />
       </form>
     );
@@ -116,8 +116,11 @@ var CommentForm = React.createClass({
 });
 
 $(function() {
-  React.render(
-    <CommentBox url="posts.json" pollInterval={2000} />,
-    document.getElementById('content')
-  );
+  var $content = $("#content");
+  if ($content.length > 0) {
+    React.render(
+      <PostBox url="posts.json" pollInterval={2000} />,
+      document.getElementById('content')
+    );
+  }
 });
