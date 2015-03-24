@@ -1,15 +1,12 @@
 <div class="container">
   <div id="content">
-    <ul class="posts">
-      <% @posts.each do |post| %>
-        <div id="post-<%= post.id %>"></div>
-        <script type="text/javascript">
-          $(function(){
-            postCreator("post-<%= post.id %>", {title: "<%= post.title %>", content: "<%= post.content %>"})
-          });
-        </script>
-      <% end %>
-    </ul>
+
   </div>
+  <script type="text/javascript">
+  window.postArray = <%= raw @posts.to_json %>;
+  $(function(){
+    postsCreator("content", postArray);
+  });
+  </script>
 </div>
 

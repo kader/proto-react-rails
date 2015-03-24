@@ -15,6 +15,14 @@ window.postCreator = function(id, post){
     document.getElementById(id)
   );
 }
+
+window.postsCreator = function(id, posts) {
+  React.render(
+    <Posts posts={posts} />,
+    document.getElementById(id)
+  )
+}
+
 var PostEl = React.createClass({
   render: function() {
     return (
@@ -23,6 +31,20 @@ var PostEl = React.createClass({
         <p>{this.props.content}</p>
       </li>
     );
+  }
+});
+
+var Posts = React.createClass({
+  render: function() {
+    var posts = this.props.posts;
+    console.log(posts);
+    return (
+      <ul class="posts">
+        {posts.map(function(post){
+          return <PostEl title={post.title} content={post.content} />
+        })}
+      </ul>
+    )
   }
 });
 
