@@ -40,3 +40,5 @@ gem 'spring',        group: :development
 
 gem 'carrierwave'
 
+gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
+gem 'showdown-rails'
