@@ -39,9 +39,11 @@ var NewPost = React.createClass({
     e.preventDefault();
     var title = this.refs.title.getDOMNode().value.trim();
     var content = this.refs.content.getDOMNode().value.trim();
+    var attachment = this.refs.attachment.getDOMNode().value.trim();
 
-    this.refs.title.getDOMNode().value = '';
-    this.refs.content.getDOMNode().value = '';
+    this.refs.title.getDOMNode().value = "";
+    this.refs.content.getDOMNode().value = "";
+    this.refs.content.getDOMNode().value = "";
     $.ajax({
       url: "/posts.json",
       dataType: "json",
@@ -57,7 +59,7 @@ var NewPost = React.createClass({
   },
   render: function() {
     return (
-      <form class="new-post" onSubmit={this.handleSubmit}>
+      <form class="new-post" onSubmit={this.handleSubmit} encType="multipart/form-data">
         <div class="form-group">
           <label for="title">Title</label>
 
@@ -66,6 +68,9 @@ var NewPost = React.createClass({
         <div class="form-group">
           <label for="content">Content</label>
           <textarea name="content" ref="content" id="content" class="form-control" placeholder="content"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="file" ref="attachment" id="attachment" class="form-control" name="attachment" />
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
