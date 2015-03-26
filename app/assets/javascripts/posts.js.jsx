@@ -27,9 +27,17 @@ var PostEl = React.createClass({
   render: function() {
     return (
       <li>
-        <h2>{this.props.title}</h2>
-        <p>{this.props.content}</p>
-        <img src={this.props.attachment.url} />
+        <div className="panel panel-primary">
+          <div className="panel-heading">
+            <h3 className="panel-title">{this.props.title}</h3>
+          </div>
+          <div className="panel-body">
+            {this.props.content}
+          </div>
+          <div className="panel-body">
+            <img height="200" width="200" src={this.props.attachment.url} />
+          </div>
+        </div>
       </li>
     );
   }
@@ -73,20 +81,20 @@ var NewPost = React.createClass({
   },
   render: function() {
     return (
-      <form class="new-post" onSubmit={this.handleSubmit} encType="multipart/form-data">
-        <div class="form-group">
+      <form className="new-post" onSubmit={this.handleSubmit} encType="multipart/form-data">
+        <div className="form-group">
           <label for="title">Title</label>
 
-          <input type="text" ref="title" id="title" class="form-control" name="title" placeholder="title" />
+          <input type="text" ref="title" id="title" className="form-control" name="title" placeholder="title" />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label for="content">Content</label>
-          <textarea name="content" ref="content" id="content" class="form-control" placeholder="content"></textarea>
+          <textarea name="content" ref="content" id="content" className="form-control" placeholder="content"></textarea>
         </div>
-        <div class="form-group">
-          <input type="file" ref="attachment" id="attachment" class="form-control" name="attachment" />
+        <div className="form-group">
+          <input type="file" ref="attachment" id="attachment" className="form-control" name="attachment" />
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" className="btn btn-default">Submit</button>
       </form>
     )
   }

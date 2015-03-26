@@ -1,7 +1,12 @@
 <div class="container">
-  <div id="content">
-
+  <div class="header clearfix">
+    <h3 class="text-muted">Prototype for React Js</h3>
   </div>
+  <div class="jumbotron">
+    <h1>Posts</h1>
+    <div id="content"></div>
+  </div>
+</div>
   <script type="text/javascript">
   window.postArray = <%= raw @posts.to_json %>;
   $(function(){
