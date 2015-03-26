@@ -11,7 +11,7 @@
  */
 window.postCreator = function(id, post){
   React.render(
-    <PostEl title={post.title} content={post.content} />,
+    <PostEl title={post.title} content={post.content} attachment={post.attachment} />,
     document.getElementById(id)
   );
 }
@@ -29,6 +29,7 @@ var PostEl = React.createClass({
       <li>
         <h2>{this.props.title}</h2>
         <p>{this.props.content}</p>
+        <img src={this.props.attachment.url} />
       </li>
     );
   }
@@ -101,13 +102,12 @@ var Posts = React.createClass({
     this.setState({posts: updatedPosts});
   },
   render: function() {
-    console.log("rendering", this.props.posts);
     var posts = this.props.posts;
     return (
       <div>
         <ul class="posts">
           {this.state.posts.map(function(post){
-            return <PostEl title={post.title} content={post.content} />
+            return <PostEl title={post.title} content={post.content} attachment={post.attachment} />
           })}
         </ul>
         <div class="post-form">
