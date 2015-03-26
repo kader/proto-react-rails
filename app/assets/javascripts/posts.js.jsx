@@ -36,19 +36,32 @@ var PostEl = React.createClass({
 
 var NewPost = React.createClass({
   handleSubmit: function(e) {
-    e.preventDefault();
+    e.preventDefault()
+
+    var fileInput = document.getElementById('attachment');
+    var file = fileInput.files[0];
+    var formData = new FormData();
+
     var title = this.refs.title.getDOMNode().value.trim();
     var content = this.refs.content.getDOMNode().value.trim();
     var attachment = this.refs.attachment.getDOMNode().value.trim();
 
     this.refs.title.getDOMNode().value = "";
     this.refs.content.getDOMNode().value = "";
-    this.refs.content.getDOMNode().value = "";
+    this.refs.attachment.getDOMNode().value = "";
+
+    formData.append("attachment", file);
+    formData.append("title", title);
+    formData.append("content", content);
+
     $.ajax({
       url: "/posts.json",
       dataType: "json",
       type: "POST",
-      data: {post: {title: title, content: content}},
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: 'json',
       success: function(data) {
         this.props.onNewPost(data);
       }.bind(this),
