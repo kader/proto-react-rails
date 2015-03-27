@@ -1,14 +1,14 @@
-### A REACT PROTOTYPE
+## A REACT PROTOTYPE
 
 This is a prototype which use react-rails gem with rails 4.1.9.
 
-## Installation
+### Installation
 
 ```ruby
 rails new proto_react_rails
 ```
 
-## Generate a scaffold model
+### Generate a scaffold model
 I used scaffold genarator for a quick start:
 ```ruby
 rails g scaffold Post title:string content:text attachment:string media:string
@@ -18,7 +18,7 @@ Fix your config/routes.rb to go to the home page, by changing to:
 root "posts#index"
 ```
 
-## Add react-rails to your gemfile
+### Add react-rails to your gemfile
 
 Gemfile:
 ```ruby
@@ -35,7 +35,7 @@ And let's add the assets to application.js file:
 //= require_tree .
 ```
 
-## Use carrierwave to attach to post
+### Use carrierwave to attach to post
 
 Gemfile:
 ```ruby
@@ -51,7 +51,7 @@ Open your model file and mount this uploader:
 mount_uploader :attachment, AttachmentUploader
 ```
 
-## Add bootstrap-saas gem
+### Add bootstrap-saas gem
 Gemfile:
 ```ruby
 gem "bootstrap-sass"
@@ -63,12 +63,12 @@ Rename app/assets/stylesheets/application.css to application.css.scss and change
 @import "bootstrap";
 ```
 Note that, when you want to use any classes in react component files(jsx), you have to rename html class with "className" instead of "class". Like that:
-```html
+```ruby
 <div className="panel-body">
 </div>
 ```
 
-## Prepare React component
+### Prepare React component
 At this prototype, I use post model, so rename
 ```ruby
 app/assets/javascripts/posts.js.coffee
@@ -80,7 +80,7 @@ app/assets/javascripts/posts.js.jsx
 Now, you can write react in this file, anymore.
 
 
-## List and create posts with react
+### List and create posts with react
 To list posts at root page with react, copy
 ```ruby
 /app/views/posts/index.html.erb
@@ -109,7 +109,7 @@ $( document ).ready(function() {
 ```
 
 
-## Some notes about file upload with ajax and render with react.
+### Some notes about file upload with ajax and render with react.
 
 I used FormData with ajax file upload. Generate a formData append all these which you send.
 Be sure that, you set processData, contentType, dataType
