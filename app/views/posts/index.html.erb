@@ -8,10 +8,10 @@
   </div>
 </div>
   <script type="text/javascript">
-  window.postArray = <%= raw @posts.to_json %>;
-  $(function(){
-    postsCreator("content", postArray);
-  });
+    window.postArray = <%= raw @posts.to_json %>;
+    $(function(){
+      postsCreator("content", postArray);
+    });
   </script>
 </div>
 
