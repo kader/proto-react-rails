@@ -16,17 +16,9 @@ var PostEl = React.createClass({
   render: function() {
     return (
       <li>
-        <div className="panel panel-primary">
-          <div className="panel-heading">
-            <h3 className="panel-title">{this.props.title}</h3>
-          </div>
-          <div className="panel-body">
-            {this.props.content}
-          </div>
-          <div className="panel-body">
-            <img height="200" width="200" src={this.props.attachment.url} />
-          </div>
-        </div>
+        <h3>{this.props.title}</h3>
+        {this.props.content}
+        <img height="200" width="200" src={this.props.attachment.url} />
       </li>
     );
   }
@@ -71,19 +63,12 @@ var NewPost = React.createClass({
   render: function() {
     return (
       <form className="new-post" onSubmit={this.handleSubmit} encType="multipart/form-data">
-        <div className="form-group">
-          <label for="title">Title</label>
-
-          <input type="text" ref="title" id="title" className="form-control" name="title" placeholder="title" />
-        </div>
-        <div className="form-group">
-          <label for="content">Content</label>
-          <textarea name="content" ref="content" id="content" className="form-control" placeholder="content"></textarea>
-        </div>
-        <div className="form-group">
-          <input type="file" ref="attachment" id="attachment" className="form-control" name="attachment" />
-        </div>
-        <button type="submit" className="btn btn-default">Submit</button>
+        <label for="title">Title</label>
+        <input type="text" ref="title" id="title" name="title" placeholder="title" />
+        <label for="content">Content</label>
+        <textarea name="content" ref="content" id="content" placeholder="content"></textarea>
+        <input type="file" ref="attachment" id="attachment" name="attachment" />
+        <button type="submit" >Submit</button>
       </form>
     )
   }
@@ -107,9 +92,7 @@ var Posts = React.createClass({
             return <PostEl title={post.title} content={post.content} attachment={post.attachment} />
           })}
         </ul>
-        <div class="post-form">
-          <NewPost onNewPost={this.addPost}/>
-        </div>
+        <NewPost onNewPost={this.addPost}/>
       </div>
     )
   }
